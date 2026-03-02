@@ -1,72 +1,84 @@
+def ventas():
+    pvp1, pvp2, pvp3 = 100, 200, 300
+    contador_sucursales = 0
+    sucursales_cumplen = 0
 
-pvp1 = 100
-pvp2 = 200
-pvp3 = 300
+    while True:
+        print(" DATOS DE LA SUCURSAL")
+        codigo_sucursal = input("Código de la sucursal: ")
+        descripcion = input("Descripción: ")
+        venta_esperada = float(input("Monto esperado de venta: "))
 
-contador_sucursales = 0
-sucursales_cumplen = 0
+        total_sucursal = 0
+        mayor_comision = -1
+        punto_mayor = ""
+
+        while True:
+            print("PUNTO DE VENTA")
+            cod_punto = input("Código del punto: ")
+            u1 = int(input("Unidades producto 1: "))
+            u2 = int(input("Unidades producto 2: "))
+            u3 = int(input("Unidades producto 3: "))
+
+            venta_bruta = (u1 * pvp1) + (u2 * pvp2) + (u3 * pvp3)
+            comision = venta_bruta * 0.10
+            venta_neta = venta_bruta - comision
+            total_sucursal = total_sucursal + venta_neta
+
+            menor = u1
+            prod_menor = 1
+            if u2 < menor:
+                menor = u2
+                prod_menor = 2
+            if u3 < menor:
+                menor = u3
+                prod_menor = 3
+
+            if comision > mayor_comision:
+                mayor_comision = comision
+                punto_mayor = cod_punto
+
+            print("Punto de venta:", cod_punto)
+            print("Monto neto:", venta_neta)
+            print("Comisión:", comision)
+            print("Producto con menor venta:", prod_menor)
+
+            op_punto = input("\n¿Otro punto de venta en esta sucursal? (s/n): ")
+            if op_punto.lower() == "n":
+                break
+
+        porcentaje = (total_sucursal / venta_esperada) * 100
+        contador_sucursales = contador_sucursales + 1
+        if total_sucursal >= venta_esperada:
+            sucursales_cumplen = sucursales_cumplen + 1
+
+        print("\nSUCURSAL:", codigo_sucursal)
+        print("Total vendido neto:", total_sucursal)
+        print("Porcentaje alcanzado:", porcentaje, "%")
+        print("Punto con mayor comisión:", punto_mayor, "con", mayor_comision)
+
+        op_sucursal = input("\n¿Registrar otra sucursal? (s/n): ")
+        if op_sucursal.lower() == "n":
+            break
+
+ 
+    if contador_sucursales > 0:
+        promedio_cumplimiento = (sucursales_cumplen / contador_sucursales) * 100
+        print("REPORTE FINAL")
+        print("Porcentaje de sucursales que cumplieron la meta:", promedio_cumplimiento, "%")
 
 
 while True:
-    codigo_sucursal = input("\nCódigo de la sucursal: ")
-    descripcion = input("Descripción: ")
-    venta_esperada = float(input("Monto esperado de venta: "))
-
-    total_sucursal = 0
-    mayor_comision_punto = 0
-    codigo_punto_mayor = ""
-
+    print("\n--- MENÚ DE OPERACIONES ---")
+    print("1. Iniciar registro de ventas")
+    print("2. Salir")
     
-    while True:
-        codigo_punto = input("\nCódigo del punto de venta: ")
+    opcion = input("Elija una opción: ")
 
-        u1 = int(input("Unidades producto 1: "))
-        u2 = int(input("Unidades producto 2: "))
-        u3 = int(input("Unidades producto 3: "))
-
-        unidades_totales = u1 + u2 + u3
-        venta_bruta = u1*pvp1 + u2*pvp2 + u3*pvp3
-
-        comision = venta_bruta * 0.10
-        venta_neta = venta_bruta - comision
-
-        menor = u1
-        prod_menor = 1
-
-        if u2 < menor:
-            menor = u2
-            prod_menor = 2
-        if u3 < menor:
-            menor = u3
-            prod_menor = 3
-
-        print("\nPUNTO DE VENTA:", codigo_punto)
-        print("Unidades vendidas:", unidades_totales)
-        print("Monto neto:", venta_neta)
-        print("Comisión:", comision)
-        print("Producto con menor venta:", prod_menor)
-
-        total_sucursal += venta_neta
-
-        if comision > mayor_comision_punto:
-            mayor_comision_punto = comision
-            codigo_punto_mayor = codigo_punto
-
-        op_punto = input("\n¿Otro punto de venta? (s/n): ")
-
-    porcentaje = (total_sucursal / venta_esperada) * 100
-
-    print("\nSUCURSAL:", codigo_sucursal)
-    print("Descripción:", descripcion)
-    print("Total vendido:", total_sucursal)
-    print("Porcentaje alcanzado:", porcentaje, "%")
-    print("Punto con mayor comisión:", codigo_punto_mayor, "-", mayor_comision_punto)
-
-    if total_sucursal >= venta_esperada:
-        sucursales_cumplen += 1
-
-    contador_sucursales += 1
-    op_sucursal = input("¿Otra sucursal? (s/n): ")
-
-porcentaje_sucursales = (sucursales_cumplen / contador_sucursales) * 100
-print("Porcentaje de sucursales que cumplieron la meta:", porcentaje_sucursales, "%")
+    if opcion == "1":
+        ventas()
+    elif opcion == "2":
+        print("Saliendo del programa...")
+        break
+    else:
+        print("Opción no válida.")

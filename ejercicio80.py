@@ -1,23 +1,42 @@
-
-while True:
-    estado_codigo = input("Ingrese el código del Estado (o 'salir' para terminar): ")
-    if estado_codigo.lower() == 'salir':
-        break
-
+def senso():
+    personas = []
+    
+    estado_codigo = input("Ingrese el código del Estado: ")
     ciudad_codigo = input("Ingrese el código de la Ciudad: ")
     municipio_codigo = input("Ingrese el código del Municipio: ")
 
-    personas = []
     while True:
-        edad = int(input("Ingrese la edad de la persona (o -1 para terminar): "))
+        edad = int(input("\nIngrese la edad (o -1 para terminar este municipio): "))
         if edad == -1:
             break
-        nivel_educacion = input("Ingrese el nivel de educación (N, B, S, P): ")
-        situacion_actual = input("Ingrese la situación actual (D, E): ")
-        personas.append({'edad': edad, 'nivel_educacion': nivel_educacion, 'situacion_actual': situacion_actual})
+        
+        nivel_educacion = input("Nivel de educación (N: Ninguno, B: Básico, S: Superior, P: Postgrado): ").upper()
+        situacion_actual = input("Situación actual (D: Desempleado, E: Empleado): ").upper()
+        
+        persona = (edad, nivel_educacion, situacion_actual)
+        personas.append(persona)
 
-    
-    desempleados_sin_educacion_mayores_25 = sum(1 for persona in personas if persona['situacion_actual'] == 'D' and persona['nivel_educacion'] == 'N' and persona['edad'] > 25)
-    print(f"Municipio {municipio_codigo}: Cantidad de personas desempleadas, sin educación y mayores de 25 años: {desempleados_sin_educacion_mayores_25}")
+    contador = 0
+    for p in personas:
+        e, n, s = p 
+        if s == 'D' and n == 'N' and e > 25:
+            contador += 1
+            
+    print(f"\n>>> RESULTADO: Ciudad {ciudad_codigo}, Municipio {municipio_codigo}")
+    print(f"Personas desempleadas, sin educación y > 25 años: {contador}")
 
-    
+
+while True:
+    print("\n--- SISTEMA DE CENSO ---")
+    print("1. Iniciar registro de censo")
+    print("2. Salir")
+
+    opcion = input("Elige una opción: ")
+
+    if opcion == "1":
+        senso() 
+    elif opcion == "2":
+        print("¡Saliendo del sistema! Hasta luego.")
+        break  
+    else:
+        print("Opción no válida.")

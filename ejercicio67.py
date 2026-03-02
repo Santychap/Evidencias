@@ -8,12 +8,12 @@ print("Pago\tDeuda pendiente")
 
 while deuda > 0:
 
-    if contador == 0:   # pago directo (primer pago)
+    if contador == 0:   
         monto = pago
-    else:               # pagos en cuotas
+    else:          
         monto = pago
 
-    if monto > deuda:   # para no pagar más de lo que debe
+    if monto > deuda:   
         monto = deuda
 
     deuda = deuda - monto

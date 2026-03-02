@@ -1,8 +1,22 @@
 
+def calcular_suma_pares():
+    suma = 0
+    for i in range(97, 1004):
+        if i % 2 == 0:
+            suma += i
+    print("suma", suma)
 
-suma= 0
+while True:
+    print("\n--- MENÚ DE SUMA ---")
+    print("1. Ejecutar ejercicio: suma de números pares entre 97 y 1004")
+    print("2. Salir")
+    
+    opcion = input("Elige una opción: ")
 
-for i in range(97, 1003):
-    if i % 2 == 0:
-        suma += i
-print("La suma de los numeros pares entre 97 y 1003 es: ", suma)
+    if opcion == "1":
+        calcular_suma_pares()
+    elif opcion == "2":
+        print("Saliendo del menú...")
+        break
+    else:
+        print("Opción no válida, intenta de nuevo.")
